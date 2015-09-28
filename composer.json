@@ -1,0 +1,27 @@
+{
+    "name": "emgag/flysystem-hash",
+    "description": "Flysystem plugin for generating a hash value of a given file",
+    "keywords": ["flysystem", "hash", "sha1", "sha256", "md5"],
+    "homepage": "https://github.com/emgag/flysystem-hash",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Matthias Blaser",
+            "email": "git@mooch.ch"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "league/flysystem": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "league/flysystem-webdav": "^1.0"
+    },
+    "autoload": {
+            "psr-4": {
+                    "Emgag\\Flysystem\\Hash\\": "src/"
+            }
+    }
+
+}
