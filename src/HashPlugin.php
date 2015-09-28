@@ -21,12 +21,12 @@ class HashPlugin extends AbstractPlugin
     /**
      * Returns hash value of given path using supplied hash algorithm
      *
-     * @param null   $path
+     * @param string $path
      * @param string $algo any algorithm supported by hash()
      * @return string|bool
      * @see http://php.net/hash
      */
-    public function handle($path = null, $algo = 'sha256')
+    public function handle($path, $algo = 'sha256')
     {
         if (!in_array($algo, hash_algos())) {
             throw new \InvalidArgumentException('Hash algorithm ' . $algo . ' is not supported');
