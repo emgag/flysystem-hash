@@ -31,7 +31,11 @@ class HashPluginTest extends PHPUnit_Framework_TestCase
      */
     public function testHash($file, $algo, $expect)
     {
-        $this->assertTrue(hash_equals($expect, $this->fs->hash($file, $algo)));
+        if (function_exists('hash_equals')) {
+            $this->assertTrue(hash_equals($expect, $this->fs->hash($file, $algo)));
+        } else {
+            $this->assertEquals($expect, $this->fs->hash($file, $algo));
+        }
     }
 
     /**
