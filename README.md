@@ -6,7 +6,7 @@
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
 
 A plugin for the [Flysystem](https://github.com/thephpleague/flysystem) file
-system abstraction library to generate hash values of a file. See [hash_algo()]() function for supported hash algorithms. 
+system abstraction library to generate hash values of a file. See [hash_algos()](http://php.net/manual/en/function.hash-algos.php) function for supported hash algorithms. 
 
 Tested with [Local](http://flysystem.thephpleague.com/adapter/local/) and [WebDav](http://flysystem.thephpleague.com/adapter/webdav/) adapters, but as the hash is built directly from the stream resource it should work for all other adapters as well.  
 
