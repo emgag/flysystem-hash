@@ -25,15 +25,19 @@ class HashPluginTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->fs = new Filesystem(new Local(__DIR__ . '/files'));
+        $this->fs     = new Filesystem(new Local(__DIR__ . '/files'));
         $this->plugin = new HashPlugin;
         $this->fs->addPlugin($this->plugin);
+
+        // make sure test file3.txt is not readable
+        chmod(__DIR__ . '/files/file3.txt', 0);
     }
 
     /**
      * Test plugin methods directly
      */
-    public function testPlugin(){
+    public function testPlugin()
+    {
         $this->assertEquals('hash', $this->plugin->getMethod());
     }
 
@@ -79,6 +83,14 @@ class HashPluginTest extends PHPUnit_Framework_TestCase
     public function testFileNotFound()
     {
         $this->fs->hash('filenotfound');
+    }
+
+    /**
+     * Test unreadable file
+     */
+    public function testUnreadableFile()
+    {
+        $this->assertFalse(@$this->fs->hash('file3.txt'));
     }
 
     /**

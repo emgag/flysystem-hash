@@ -39,10 +39,7 @@ class HashPlugin extends AbstractPlugin
         }
 
         $hc = hash_init($algo);
-
-        if (hash_update_stream($hc, $stream) === false) {
-            return false;
-        }
+        hash_update_stream($hc, $stream);
 
         return hash_final($hc);
     }
