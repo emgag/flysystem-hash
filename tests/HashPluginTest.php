@@ -15,15 +15,31 @@ class HashPluginTest extends PHPUnit_Framework_TestCase
     protected $fs;
 
     /**
+     * @var $plugin HashPlugin
+     */
+    protected $plugin;
+
+    /**
      * Setup filesystem object
+     *
      */
     protected function setUp()
     {
         $this->fs = new Filesystem(new Local(__DIR__ . '/files'));
-        $this->fs->addPlugin(new HashPlugin);
+        $this->plugin = new HashPlugin;
+        $this->fs->addPlugin($this->plugin);
     }
 
     /**
+     * Test plugin methods directly
+     */
+    public function testPlugin(){
+        $this->assertEquals('hash', $this->plugin->getMethod());
+    }
+
+    /**
+     * Check correct hash values
+     *
      * @param $file
      * @param $algo
      * @param $expect
@@ -36,6 +52,17 @@ class HashPluginTest extends PHPUnit_Framework_TestCase
         } else {
             $this->assertEquals($expect, $this->fs->hash($file, $algo));
         }
+    }
+
+    /**
+     * Check if default hash algo is sha256 as promised
+     */
+    public function testDefaultHash()
+    {
+        $this->assertEquals(
+            $this->fs->hash('file1.txt'),
+            $this->fs->hash('file1.txt', 'sha256')
+        );
     }
 
     /**
