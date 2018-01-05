@@ -2,11 +2,12 @@
 use Emgag\Flysystem\Hash\HashPlugin;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test class for hash plugin
  */
-class HashPluginTest extends PHPUnit_Framework_TestCase
+class HashPluginTest extends TestCase
 {
 
     /**
