@@ -1,0 +1,28 @@
+name: build
+
+on:
+  pull_request:
+  push:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php-versions: ['7.2', '7.3', '7.4']
+        name: PHP ${{ matrix.php-versions }} Test
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  coverage: xdebug
+
+            - name: Install dependencies
+              run: composer install
+
+            - name: Run phpunit
+              run: vendor/bin/phpunit
