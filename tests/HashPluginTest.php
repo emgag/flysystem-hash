@@ -1,6 +1,7 @@
 <?php
 use Emgag\Flysystem\Hash\HashPlugin;
 use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +25,7 @@ class HashPluginTest extends TestCase
      * Setup filesystem object
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->fs     = new Filesystem(new Local(__DIR__ . '/files'));
         $this->plugin = new HashPlugin;
@@ -39,7 +40,7 @@ class HashPluginTest extends TestCase
      */
     public function testPlugin()
     {
-        $this->assertEquals('hash', $this->plugin->getMethod());
+        self::assertEquals('hash', $this->plugin->getMethod());
     }
 
     /**
@@ -53,9 +54,9 @@ class HashPluginTest extends TestCase
     public function testHash($file, $algo, $expect)
     {
         if (function_exists('hash_equals')) {
-            $this->assertTrue(hash_equals($expect, $this->fs->hash($file, $algo)));
+            self::assertTrue(hash_equals($expect, $this->fs->hash($file, $algo)));
         } else {
-            $this->assertEquals($expect, $this->fs->hash($file, $algo));
+            self::assertEquals($expect, $this->fs->hash($file, $algo));
         }
     }
 
@@ -64,25 +65,21 @@ class HashPluginTest extends TestCase
      */
     public function testDefaultHash()
     {
-        $this->assertEquals(
+        self::assertEquals(
             $this->fs->hash('file1.txt'),
             $this->fs->hash('file1.txt', 'sha256')
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testUnsupportedAlgo()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->fs->hash('file1.txt', 'supersecretnsaalgorithm');
     }
 
-    /**
-     * @expectedException League\Flysystem\FileNotFoundException
-     */
     public function testFileNotFound()
     {
+        $this->expectException(FileNotFoundException::class);
         $this->fs->hash('filenotfound');
     }
 
@@ -91,7 +88,7 @@ class HashPluginTest extends TestCase
      */
     public function testUnreadableFile()
     {
-        $this->assertFalse(@$this->fs->hash('file3.txt'));
+        self::assertFalse(@$this->fs->hash('file3.txt'));
     }
 
     /**

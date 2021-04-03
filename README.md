@@ -4,6 +4,8 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Packagist Version](https://img.shields.io/packagist/v/emgag/flysystem-hash.svg)](https://packagist.org/packages/emgag/flysystem-hash)
 
+**NOTE: Plugins were [removed in Flysystem 2.0](https://flysystem.thephpleague.com/v2/docs/what-is-new/) and thus this library is only available for Flysystem 1.x.**
+
 A plugin for the [Flysystem](https://github.com/thephpleague/flysystem) file
 system abstraction library to generate hash values of a file. See [hash_algos()](http://php.net/manual/en/function.hash-algos.php) function for supported hash algorithms. 
 
